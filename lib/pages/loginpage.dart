@@ -53,12 +53,13 @@ Future<void> _handleSignIn() async {
                 'easyPKU',
                 style: TextStyle(
                   color: Colors.grey[700],
-                  fontSize: 25,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 200),
               Text(
-                'Please sign in with graduate account',
+                'Please sign in with UTM student account',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 20,
