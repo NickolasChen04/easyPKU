@@ -1,5 +1,5 @@
+import 'package:easypku/pages/record.dart';
 import 'package:easypku/pages/userhome.dart';
-import 'package:easypku/pages/appointmentpage.dart';
 import 'package:easypku/pages/profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
 
   final List<Widget> _pages = [
     UserHome(),
-    const AppointmentPage(),
+    const RecordPage(),
     ProfilePage()
   ];
 

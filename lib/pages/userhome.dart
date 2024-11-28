@@ -1,4 +1,3 @@
-import 'package:easypku/pages/addpage.dart';
 import 'package:easypku/pages/billpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +8,17 @@ class UserHome extends StatefulWidget {
   UserHome({super.key});
   final user = FirebaseAuth.instance.currentUser!;
 
-  void signUserOut() {
-    GoogleSignIn().signOut();
-    FirebaseAuth.instance.signOut();
-  }
-
   @override
   State<UserHome> createState() => _UserHomeState();
 }
 
 class _UserHomeState extends State<UserHome> {
+
+    void signUserOut() {
+    GoogleSignIn().signOut();
+    FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(context, '/');
+  }
 
   Future<String> getName() async {
     final String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -51,7 +51,7 @@ class _UserHomeState extends State<UserHome> {
         ),
         actions: [
           IconButton(
-            onPressed: widget.signUserOut,
+            onPressed: signUserOut,
             icon: const Icon(Icons.logout),
           )
         ],
@@ -108,11 +108,7 @@ class _UserHomeState extends State<UserHome> {
               const SizedBox(height: 40),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const AddPage()),
-                    );
-                  },
+                  onPressed: () => Navigator.of(context).pushNamed('selection_page'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[200],
                     padding: const EdgeInsets.symmetric(
