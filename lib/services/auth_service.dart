@@ -43,13 +43,15 @@ class AuthService {
   final docSnapshot = await userRef.get();
   String? customName = docSnapshot.exists? (docSnapshot.data() as Map<String, dynamic>)['name']: null;
   String nameToSave = customName ?? user.displayName ?? 'Unknown';
+  double? billexist = docSnapshot.exists? (docSnapshot.data() as Map<String, dynamic>)['bill']: null;
+  double billNow = billexist ?? 0.00;
     
     await userRef.set({
       'name': nameToSave,
       'email': user.email,
       'photoURL': user.photoURL,
       'lastSignIn': FieldValue.serverTimestamp(),
-      'bill': 0.00, 
+      'bill': billNow, 
     }, SetOptions(merge: true));
   }
 }
