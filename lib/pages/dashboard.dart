@@ -17,7 +17,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> _pages = [
     UserHome(),
     const RecordPage(),
-    ProfilePage()
+    const ProfileScreen()
   ];
 
   @override
