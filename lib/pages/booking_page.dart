@@ -19,7 +19,6 @@ class _BookingPageState extends State<BookingPage> {
   DateTime _focusDay = DateTime.now();
   DateTime _currentDay = DateTime.now();
   int? _currentIndex;
-  bool _isWeekend = false;
   bool _dateSelected = false;
   bool _timeSelected = false;
   bool _skipDoctorSelection = false;
@@ -63,8 +62,6 @@ class _BookingPageState extends State<BookingPage> {
     ],
   };
 
-  // Convert time string to DateTime
- 
   DateTime _parseTimeString(String timeStr) {
     final now = DateTime.now();
     final time = timeStr.toUpperCase();
@@ -109,7 +106,6 @@ class _BookingPageState extends State<BookingPage> {
         throw Exception('User not logged in');
       }
 
-      // Create appointment using factory constructor
       final appointment = Appointment.create(
         doctorName: doctor['name'],
         doctorId: doctor['id'],
@@ -121,10 +117,9 @@ class _BookingPageState extends State<BookingPage> {
         doctorProfile: doctor['image'],
       );
 
-      // Save to Firestore
       await FirebaseFirestore.instance
           .collection('appointments')
-          .doc(appointment.id) // Use generated ID as document ID
+          .doc(appointment.id)
           .set(appointment.toMap());
 
       if (mounted) {
@@ -136,7 +131,7 @@ class _BookingPageState extends State<BookingPage> {
             'date': _currentDay,
             'time': timeSlots[_currentIndex!],
             'service': selectedService,
-            'appointmentId': appointment.id, // Pass the generated ID
+            'appointmentId': appointment.id,
           },
         );
       }
@@ -215,7 +210,6 @@ class _BookingPageState extends State<BookingPage> {
                           _dateSelected = true;
                           _currentIndex = null;
                           _timeSelected = false;
-                          _isWeekend = selectedDay.weekday >= 6;
                         });
                       }),
                     ),
@@ -232,81 +226,65 @@ class _BookingPageState extends State<BookingPage> {
                   ],
                 ),
               ),
-              _isWeekend
-                  ? SliverToBoxAdapter(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 30),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Weekend is not available, please select another date',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final bool isAvailable = isTimeSlotAvailable(timeSlots[index]);
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        onTap: isAvailable
+                            ? () {
+                                setState(() {
+                                  _currentIndex = index;
+                                  _timeSelected = true;
+                                });
+                              }
+                            : null,
+                        child: Container(
+                          margin: const EdgeInsets.all(2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 2),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: _currentIndex == index
+                                  ? Colors.white
+                                  : isAvailable
+                                      ? Colors.black
+                                      : Colors.grey.shade300,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            color: _currentIndex == index
+                                ? BookingPage.customBlue
+                                : null,
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            timeSlots[index],
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: _currentIndex == index
+                                  ? Colors.white
+                                  : isAvailable
+                                      ? Colors.black
+                                      : Colors.grey.shade400,
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  : SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20), // Add padding on both sides
-                      sliver: SliverGrid(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            final bool isAvailable = isTimeSlotAvailable(timeSlots[index]);
-                            return InkWell(
-                              splashColor: Colors.transparent,
-                              onTap: isAvailable
-                                  ? () {
-                                      setState(() {
-                                        _currentIndex = index;
-                                        _timeSelected = true;
-                                      });
-                                    }
-                                  : null,
-                              child: Container(
-                                margin: const EdgeInsets.all(2),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 2),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: _currentIndex == index
-                                        ? Colors.white
-                                        : isAvailable
-                                            ? Colors.black
-                                            : Colors.grey.shade300,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: _currentIndex == index
-                                      ? BookingPage.customBlue
-                                      : null,
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  timeSlots[index],
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: _currentIndex == index
-                                        ? Colors.white
-                                        : isAvailable
-                                            ? Colors.black
-                                            : Colors.grey.shade400,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          childCount: timeSlots.length,
-                        ),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 2.0,
-                          mainAxisSpacing: 6,
-                          crossAxisSpacing: 6,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
+                    childCount: timeSlots.length,
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 2.0,
+                    mainAxisSpacing: 6,
+                    crossAxisSpacing: 6,
+                  ),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
