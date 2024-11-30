@@ -6,10 +6,13 @@ import 'package:easypku/pages/selectionpage.dart';
 import 'package:easypku/pages/success_booked.dart';
 import 'package:flutter/material.dart'; 
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();  // Ensure binding is initialized
-  await Firebase.initializeApp();  // Initialize Firebase
+   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );  // Initialize Firebase
 
   runApp(
     MaterialApp(

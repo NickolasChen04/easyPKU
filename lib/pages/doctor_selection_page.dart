@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import '../models/appointment_model.dart';
 
 class DoctorSelectionPage extends StatelessWidget {
   const DoctorSelectionPage({super.key});
@@ -7,185 +11,243 @@ class DoctorSelectionPage extends StatelessWidget {
   static const Color customBlue = Color(0xFF84C7E7);
 
   final List<Map<String, dynamic>> doctors = const [
-    // Emergency Doctors
-    {
-      'id': 'EME001',
-      'name': 'Dr. Mohd Fidaus Akmal bin Azman',
-      'position': 'Medical Officer',
-      'experience': '15 years',
-      'rating': '4.8',
-      'image': 'assets/Dr._Mohd_Fidaus_Akmal_bin_Azman.png',
-      'specialty': 'Emergency',
-    },
-    {
-      'id': 'EME002',
-      'name': 'Md Hadafi Bin Suleiman @ Salman',
-      'position': 'Senior Assistant Medical Officer',
-      'experience': '7 years',
-      'rating': '4.9',
-      'image': 'assets/Md_Hadafi_Bin_Suleiman_Salman.png',
-      'specialty': 'Emergency',
-    },
-    // Dental Doctors
-    {
-      'id': 'DEN001',
-      'name': 'Dr. Norannieza Binti Muzlan',
-      'position': 'Dental Officer',
-      'experience': '9 years',
-      'rating': '4.9',
-      'image': 'assets/Dr._Norannieza_Binti_Muzla.png',
-      'specialty': 'Dental',
-    },
-    {
-      'id': 'DEN002',
-      'name': 'Dr. Nurhazwani Binti Zakaria',
-      'position': 'Dental Officer',
-      'experience': '5 years',
-      'rating': '4.7',
-      'image': 'assets/Dr._Nurhazwani_Binti_Zakaria.png',
-      'specialty': 'Dental',
-    },
-    {
-      'id': 'DEN003',
-      'name': 'Mohd Halil Bin Md Sukor',
-      'position': 'Dental Technologist',
-      'experience': '4 years',
-      'rating': '4.8',
-      'image': 'assets/Mohd_Halil_Bin_Md_Sukor.png',
-      'specialty': 'Dental',
-    },
-    {
-      'id': 'DEN004',
-      'name': 'Abdul Aziz Bin Mat Yaman',
-      'position': 'Dental Surgery Assistant',
-      'experience': '4 years',
-      'rating': '4.5',
-      'image': 'assets/Abdul_Aziz_Bin_Mat_Yaman.png',
-      'specialty': 'Dental',
-    },
-    {
-      'id': 'DEN005',
-      'name': 'Hafilah Binti Khamis',
-      'position': 'Dental Surgery Assistant',
-      'experience': '4 years',
-      'rating': '4.6',
-      'image': 'assets/Hafilah_Binti_Khamis.png',
-      'specialty': 'Dental',
-    },
-    // Physiotherapy Doctors
-    {
-      'id': 'PHY001',
-      'name': 'Dr. Tan Ri Chuan',
-      'position': 'Medical Officer',
-      'experience': '9 years',
-      'rating': '4.9',
-      'image': 'assets/Dr._Tan_Ri_Chuan.png',
-      'specialty': 'Physiotherapy',
-    },
-    {
-      'id': 'PHY002',
-      'name': 'Aidaliza Binti Asmuni',
-      'position': 'Medical Therapist',
-      'experience': '4 years',
-      'rating': '4.7',
-      'image': 'assets/Aidaliza_Binti_Asmuni.png',
-      'specialty': 'Physiotherapy',
-    },
-    {
-      'id': 'PHY003',
-      'name': 'Yahya Bin Dimon',
-      'position': 'Healthcare Assistant',
-      'experience': '3 years',
-      'rating': '4.7',
-      'image': 'assets/Yahya_Bin_Dimon.png',
-      'specialty': 'Physiotherapy',
-    },
-    // Mental Health Doctors
-    {
-      'id': 'MEN001',
-      'name': 'Dr. Noor Hafizah Zaihanah Bt Mohd Nur',
-      'position': 'Medical Officer',
-      'experience': '12 years',
-      'rating': '4.7',
-      'image': 'assets/Dr._Noor_Hafizah_Zaihanah_Bt_Mohd_Nur.png',
-      'specialty': 'Mental Health',
-    },
-    {
-      'id': 'MEN002',
-      'name': 'Mazlida Binti Zakaria',
-      'position': 'Nurse',
-      'experience': '2 years',
-      'rating': '4.9',
-      'image': 'assets/Mazlida_Binti_Zakaria.png',
-      'specialty': 'Mental Health',
-    },
-    {
-      'id': 'MEN003',
-      'name': 'Nur Rashidah Binti Hj Taufikul Rahman',
-      'position': 'Nurse',
-      'experience': '3 years',
-      'rating': '4.8',
-      'image': 'assets/Nur_Rashidah_Binti_Hj_Taufikul_Rahman.png',
-      'specialty': 'Mental Health',
-    },
-    {
-      'id': 'MEN004',
-      'name': 'Sarimah Binti Salleh',
-      'position': 'Community Nurse',
-      'experience': '3 years',
-      'rating': '4.7',
-      'image': 'assets/Sarimah_Binti_Salleh.png',
-      'specialty': 'Mental Health',
-    },
-    // General Doctors
-    {
-      'id': 'GEN001',
-      'name': 'Dr. Mohd Zaki Bin Yunos',
-      'position': 'Medical Officer',
-      'experience': '8 years',
-      'rating': '4.9',
-      'image': 'assets/Dr._Mohd_Zaki_Bin_Yunos.png',
-      'specialty': 'General',
-    },
-    {
-      'id': 'GEN002',
-      'name': 'Noraisah Binti Mohd Yusof',
-      'position': 'Chief Nurse',
-      'experience': '7 years',
-      'rating': '4.9',
-      'image': 'assets/Noraisah_Binti_Mohd_Yusof.png',
-      'specialty': 'General',
-    },
-    {
-      'id': 'GEN003',
-      'name': 'Amiruldin Bin Abdul Aziz',
-      'position': 'Senior Assistant Medical Officer',
-      'experience': '8 years',
-      'rating': '4.8',
-      'image': 'assets/Amiruldin_Bin_Abdul_Aziz.png',
-      'specialty': 'General',
-    },
-    {
-      'id': 'GEN004',
-      'name': 'Noorsuzilawati Bt. Mohamad Yahya',
-      'position': 'Assistant Medical Officer',
-      'experience': '4 years',
-      'rating': '4.7',
-      'image': 'assets/Noorsuzilawati_Bt._Mohamad_Yahya.png',
-      'specialty': 'General',
-    },
-    {
-      'id': 'GEN005',
-      'name': 'Marzihan Bte Ab Karim',
-      'position': 'Senior Nurse',
-      'experience': '8 years',
-      'rating': '4.7',
-      'image': 'assets/Marzihan_Bte_Ab_Karim.png',
-      'specialty': 'General',
-    },
-  ];
+      // Emergency Doctors
+      {
+        'id': 'EME001',
+        'name': 'Dr. Mohd Fidaus Akmal bin Azman',
+        'position': 'Medical Officer',
+        'experience': '15 years',
+        'rating': '4.8',
+        'image': 'assets/Dr._Mohd_Fidaus_Akmal_bin_Azman.png',
+        'specialty': 'Emergency',
+      },
+      {
+        'id': 'EME002',
+        'name': 'Md Hadafi Bin Suleiman @ Salman',
+        'position': 'Senior Assistant Medical Officer',
+        'experience': '7 years',
+        'rating': '4.9',
+        'image': 'assets/Md_Hadafi_Bin_Suleiman_Salman.png',
+        'specialty': 'Emergency',
+      },
+      // Dental Doctors
+      {
+        'id': 'DEN001',
+        'name': 'Dr. Norannieza Binti Muzlan',
+        'position': 'Dental Officer',
+        'experience': '9 years',
+        'rating': '4.9',
+        'image': 'assets/Dr._Norannieza_Binti_Muzla.png',
+        'specialty': 'Dental',
+      },
+      {
+        'id': 'DEN002',
+        'name': 'Dr. Nurhazwani Binti Zakaria',
+        'position': 'Dental Officer',
+        'experience': '5 years',
+        'rating': '4.7',
+        'image': 'assets/Dr._Nurhazwani_Binti_Zakaria.png',
+        'specialty': 'Dental',
+      },
+      {
+        'id': 'DEN003',
+        'name': 'Mohd Halil Bin Md Sukor',
+        'position': 'Dental Technologist',
+        'experience': '4 years',
+        'rating': '4.8',
+        'image': 'assets/Mohd_Halil_Bin_Md_Sukor.png',
+        'specialty': 'Dental',
+      },
+      {
+        'id': 'DEN004',
+        'name': 'Abdul Aziz Bin Mat Yaman',
+        'position': 'Dental Surgery Assistant',
+        'experience': '4 years',
+        'rating': '4.5',
+        'image': 'assets/Abdul_Aziz_Bin_Mat_Yaman.png',
+        'specialty': 'Dental',
+      },
+      {
+        'id': 'DEN005',
+        'name': 'Hafilah Binti Khamis',
+        'position': 'Dental Surgery Assistant',
+        'experience': '4 years',
+        'rating': '4.6',
+        'image': 'assets/Hafilah_Binti_Khamis.png',
+        'specialty': 'Dental',
+      },
+      // Physiotherapy Doctors
+      {
+        'id': 'PHY001',
+        'name': 'Dr. Tan Ri Chuan',
+        'position': 'Medical Officer',
+        'experience': '9 years',
+        'rating': '4.9',
+        'image': 'assets/Dr._Tan_Ri_Chuan.png',
+        'specialty': 'Physiotherapy',
+      },
+      {
+        'id': 'PHY002',
+        'name': 'Aidaliza Binti Asmuni',
+        'position': 'Medical Therapist',
+        'experience': '4 years',
+        'rating': '4.7',
+        'image': 'assets/Aidaliza_Binti_Asmuni.png',
+        'specialty': 'Physiotherapy',
+      },
+      {
+        'id': 'PHY003',
+        'name': 'Yahya Bin Dimon',
+        'position': 'Healthcare Assistant',
+        'experience': '3 years',
+        'rating': '4.7',
+        'image': 'assets/Yahya_Bin_Dimon.png',
+        'specialty': 'Physiotherapy',
+      },
+      // Mental Health Doctors
+      {
+        'id': 'MEN001',
+        'name': 'Dr. Noor Hafizah Zaihanah Bt Mohd Nur',
+        'position': 'Medical Officer',
+        'experience': '12 years',
+        'rating': '4.7',
+        'image': 'assets/Dr._Noor_Hafizah_Zaihanah_Bt_Mohd_Nur.png',
+        'specialty': 'Mental Health',
+      },
+      {
+        'id': 'MEN002',
+        'name': 'Mazlida Binti Zakaria',
+        'position': 'Nurse',
+        'experience': '2 years',
+        'rating': '4.9',
+        'image': 'assets/Mazlida_Binti_Zakaria.png',
+        'specialty': 'Mental Health',
+      },
+      {
+        'id': 'MEN003',
+        'name': 'Nur Rashidah Binti Hj Taufikul Rahman',
+        'position': 'Nurse',
+        'experience': '3 years',
+        'rating': '4.8',
+        'image': 'assets/Nur_Rashidah_Binti_Hj_Taufikul_Rahman.png',
+        'specialty': 'Mental Health',
+      },
+      {
+        'id': 'MEN004',
+        'name': 'Sarimah Binti Salleh',
+        'position': 'Community Nurse',
+        'experience': '3 years',
+        'rating': '4.7',
+        'image': 'assets/Sarimah_Binti_Salleh.png',
+        'specialty': 'Mental Health',
+      },
+      // General Doctors
+      {
+        'id': 'GEN001',
+        'name': 'Dr. Mohd Zaki Bin Yunos',
+        'position': 'Medical Officer',
+        'experience': '8 years',
+        'rating': '4.9',
+        'image': 'assets/Dr._Mohd_Zaki_Bin_Yunos.png',
+        'specialty': 'General',
+      },
+      {
+        'id': 'GEN002',
+        'name': 'Noraisah Binti Mohd Yusof',
+        'position': 'Chief Nurse',
+        'experience': '7 years',
+        'rating': '4.9',
+        'image': 'assets/Noraisah_Binti_Mohd_Yusof.png',
+        'specialty': 'General',
+      },
+      {
+        'id': 'GEN003',
+        'name': 'Amiruldin Bin Abdul Aziz',
+        'position': 'Senior Assistant Medical Officer',
+        'experience': '8 years',
+        'rating': '4.8',
+        'image': 'assets/Amiruldin_Bin_Abdul_Aziz.png',
+        'specialty': 'General',
+      },
+      {
+        'id': 'GEN004',
+        'name': 'Noorsuzilawati Bt. Mohamad Yahya',
+        'position': 'Assistant Medical Officer',
+        'experience': '4 years',
+        'rating': '4.7',
+        'image': 'assets/Noorsuzilawati_Bt._Mohamad_Yahya.png',
+        'specialty': 'General',
+      },
+      {
+        'id': 'GEN005',
+        'name': 'Marzihan Bte Ab Karim',
+        'position': 'Senior Nurse',
+        'experience': '8 years',
+        'rating': '4.7',
+        'image': 'assets/Marzihan_Bte_Ab_Karim.png',
+        'specialty': 'General',
+      },
+    ];
 
-   @override
+  Future<void> _saveAppointment(
+    BuildContext context,
+    Map<String, dynamic> doctor,
+    DateTime selectedDate,
+    String selectedTime,
+    String selectedService,
+  ) async {
+    // Show loading indicator
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception('User not logged in');
+
+      final appointment = Appointment.create(
+        doctorName: doctor['name'],
+        doctorId: doctor['id'],
+        userId: user.uid,
+        category: selectedService,
+        date: selectedDate,
+        day: DateFormat('EEEE').format(selectedDate),
+        time: selectedTime,
+        doctorProfile: doctor['image'],
+      );
+
+      await FirebaseFirestore.instance
+          .collection('appointments')
+          .doc(appointment.id)
+          .set(appointment.toMap());
+
+      if (context.mounted) {
+        Navigator.pop(context); // Close loading dialog
+        Navigator.pushNamed(
+          context,
+          'success_booking',
+          arguments: {
+            'doctor': doctor,
+            'date': selectedDate,
+            'time': selectedTime,
+            'service': selectedService,
+            'appointmentId': appointment.id,
+          },
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context); // Close loading dialog
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error saving appointment: $e')),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     final selectedDate = args['date'] as DateTime;
@@ -315,18 +377,13 @@ class DoctorSelectionPage extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () {
-                Navigator.pushNamed(
-                  context, 
-                  'success_booking',
-                  arguments: {
-                    'doctor': doctor,
-                    'date': selectedDate,
-                    'time': selectedTime,
-                    'service': selectedService,
-                  },
-                );
-              },
+              onTap: () => _saveAppointment(
+                context,
+                doctor,
+                selectedDate,
+                selectedTime,
+                selectedService,
+              ),
             ),
           );
         },

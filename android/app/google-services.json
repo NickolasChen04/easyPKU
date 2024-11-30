@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "470963638153-400pglqu5cs1qffsldmll5oh30a3o8dv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.easypku",
+            "certificate_hash": "facab5c8f085a1e7a80fa070d5f3dd61c9caf7ac"
+          }
+        },
+        {
           "client_id": "470963638153-hqv5vud9pf7osufoa8gau3taeun4g620.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +30,7 @@
           }
         },
         {
-          "client_id": "470963638153-9lfso4l0qhe8f98rjp214vdllnu4htbn.apps.googleusercontent.com",
+          "client_id": "470963638153-u2su9cip0qinc9btalvcd7cmv218ivgs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -37,6 +45,13 @@
             {
               "client_id": "470963638153-9lfso4l0qhe8f98rjp214vdllnu4htbn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "470963638153-qo9v5u7a6ivglumu9u2390qct9glp56k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.easypku"
+              }
             }
           ]
         }
