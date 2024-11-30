@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Update $fieldName'),
         content: TextField(
           controller: textController,
-          decoration: InputDecoration(hintText: 'Enter new $fieldName'),
+          decoration: InputDecoration(hintText: 'Enter $fieldName'),
         ),
         actions: [
           TextButton(
