@@ -248,60 +248,63 @@ class _BookingPageState extends State<BookingPage> {
                         ),
                       ),
                     )
-                  : SliverGrid(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final bool isAvailable = isTimeSlotAvailable(timeSlots[index]);
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: isAvailable
-                                ? () {
-                                    setState(() {
-                                      _currentIndex = index;
-                                      _timeSelected = true;
-                                    });
-                                  }
-                                : null,
-                            child: Container(
-                              margin: const EdgeInsets.all(2),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 4, vertical: 2),
-                              decoration: BoxDecoration(
-                                border: Border.all(
+                  : SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20), // Add padding on both sides
+                      sliver: SliverGrid(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final bool isAvailable = isTimeSlotAvailable(timeSlots[index]);
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              onTap: isAvailable
+                                  ? () {
+                                      setState(() {
+                                        _currentIndex = index;
+                                        _timeSelected = true;
+                                      });
+                                    }
+                                  : null,
+                              child: Container(
+                                margin: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 2),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: _currentIndex == index
+                                        ? Colors.white
+                                        : isAvailable
+                                            ? Colors.black
+                                            : Colors.grey.shade300,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                   color: _currentIndex == index
-                                      ? Colors.white
-                                      : isAvailable
-                                          ? Colors.black
-                                          : Colors.grey.shade300,
+                                      ? BookingPage.customBlue
+                                      : null,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                                color: _currentIndex == index
-                                    ? BookingPage.customBlue
-                                    : null,
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                timeSlots[index],
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: _currentIndex == index
-                                      ? Colors.white
-                                      : isAvailable
-                                          ? Colors.black
-                                          : Colors.grey.shade400,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  timeSlots[index],
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: _currentIndex == index
+                                        ? Colors.white
+                                        : isAvailable
+                                            ? Colors.black
+                                            : Colors.grey.shade400,
+                                  ),
                                 ),
                               ),
-                              ),
-                          );
-                        },
-                        childCount: timeSlots.length,
-                      ),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        childAspectRatio: 1.8,
-                        mainAxisSpacing: 6,
-                        crossAxisSpacing: 6,
+                            );
+                          },
+                          childCount: timeSlots.length,
+                        ),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          childAspectRatio: 2.0,
+                          mainAxisSpacing: 6,
+                          crossAxisSpacing: 6,
+                        ),
                       ),
                     ),
               SliverToBoxAdapter(
