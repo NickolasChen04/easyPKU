@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
+
 
 class UserHome extends StatefulWidget {
   UserHome({super.key});
@@ -13,6 +15,7 @@ class UserHome extends StatefulWidget {
 
 class _UserHomeState extends State<UserHome> {
   User? user;
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
    @override
   void initState() {
     super.initState();
@@ -46,6 +49,17 @@ class _UserHomeState extends State<UserHome> {
       return (userDoc['bill'] is double)? userDoc['bill'] as double: (userDoc['bill'] as num).toDouble();
     }
     return 0.00;
+  }
+
+    String _formatDate(dynamic date) {
+    if (date is Timestamp) {
+      DateTime dateTime = date.toDate();
+      return DateFormat('dd/MM/yyyy').format(dateTime);
+    } else if (date is String) {
+      DateTime dateTime = DateTime.parse(date);
+      return DateFormat('dd/MM/yyyy').format(dateTime);
+    }
+    return 'Invalid Date';
   }
 
   @override
@@ -234,10 +248,94 @@ class _UserHomeState extends State<UserHome> {
                   color: Colors.black,
                 ),
               ),
-            ],
-          ),
-        ),
+              StreamBuilder<QuerySnapshot>
+              (stream: FirebaseFirestore.instance
+            .collection('appointments')
+            .where('userId', isEqualTo: uid)
+            .where('status', isEqualTo: 'upcoming')
+            .orderBy('date', descending: false)
+            .orderBy('time',descending: false)
+            .snapshots(),
+               builder: (context, snapshot) {
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(
+              child: Text('No appointment found.',
+                  style: TextStyle(fontSize: 18, color: Colors.grey)),
+            );
+          }
+
+          var appointments = snapshot.data!.docs;
+
+      return Flexible( 
+      child: ListView.builder(
+        itemCount: appointments.length,
+        itemBuilder: (context, index) {
+          var appointment = appointments[index];
+          var date = _formatDate(appointment['date']);
+          var time = appointment['time'];
+
+          return Container(
+  margin: const EdgeInsets.symmetric(vertical: 8.0),
+  padding: const EdgeInsets.all(16.0),
+  decoration: BoxDecoration(
+    color: Colors.grey[50], 
+    borderRadius: BorderRadius.circular(10.0),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.grey,
+        blurRadius: 5,
+        offset: Offset(0, 3),
       ),
-    );
+    ],
+  ),
+  child: Row(
+    children: [
+      const Icon(
+        Icons.event,
+        color: Colors.blue,
+        size: 30,
+      ),
+      const SizedBox(width: 16.0),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            date,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            time,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black54,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+);
+        }
+
+          )
+      );
+        },
+      ),
+            ]
+    )
+        
+    
+               
+              )
+            
+  
+          ),
+        );
+      
+    
   }
 }
