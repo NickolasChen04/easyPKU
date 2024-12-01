@@ -1,17 +1,18 @@
-import 'package:easypku/components/button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class AppointmentBooked extends StatelessWidget {
   const AppointmentBooked({super.key});
 
+  static const Color customBlue = Color(0xFF84C7E7);
+
   @override
   Widget build(BuildContext context) {
-    // Get the arguments passed from booking page
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     final String appointmentId = args['appointmentId'] ?? '';
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,6 +31,7 @@ class AppointmentBooked extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF2B7A9E),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -39,10 +41,10 @@ class AppointmentBooked extends StatelessWidget {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.blue.shade50,
+                      color: customBlue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: const Color(0xFF84C7E7),
+                        color: customBlue,
                         width: 1,
                       ),
                     ),
@@ -75,28 +77,47 @@ class AppointmentBooked extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  Button(
+                  SizedBox(
                     width: double.infinity,
-                    title: 'Back to Home Page',
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                      context, 
-                      'user_home', 
-                       (Route<dynamic> route) => false,  // This removes all routes before 'user_home'
-                       );
-                        },
-                    disable: false,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: customBlue,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'user_home',
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: const Text(
+                        'Back to Home Page',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).popUntil((route) => route.settings.name == 'selection_page');
+                      Navigator.of(context).popUntil(
+                        (route) => route.settings.name == 'selection_page'
+                      );
                     },
+                    style: TextButton.styleFrom(
+                      foregroundColor: customBlue,
+                    ),
                     child: const Text(
                       'Book Another Appointment',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Color(0xFF84C7E7),
                       ),
                     ),
                   ),
