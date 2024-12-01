@@ -34,30 +34,22 @@ Future<void> _handleSignIn() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              const SizedBox(height: 200),
+              const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'lib/images/log_in.png',
-                    height: 150,
+                    'lib/images/logo.png',
+                    height: 300,
                   ),
                 ],
               ),
-              Text(
-                'easyPKU',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 200),
+
+              const SizedBox(height: 100),
               Text(
                 'Please sign in with UTM student account',
                 style: TextStyle(
