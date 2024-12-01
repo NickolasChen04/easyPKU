@@ -311,7 +311,7 @@ class _UserHomeState extends State<UserHome> {
             time,
             style: const TextStyle(
               fontSize: 14,
-              color: Colors.black54,
+              color: Colors.black,
             ),
           ),
         ],
