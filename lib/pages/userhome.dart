@@ -6,13 +6,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class UserHome extends StatefulWidget {
   UserHome({super.key});
-  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   State<UserHome> createState() => _UserHomeState();
 }
 
 class _UserHomeState extends State<UserHome> {
+  User? user;
+   @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser!;
+    if (user == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/');
+      });
+    }
+  }
 
     void signUserOut() {
     GoogleSignIn().signOut();
