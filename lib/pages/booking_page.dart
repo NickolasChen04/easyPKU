@@ -85,15 +85,22 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 
-  bool isTimeSlotAvailable(String timeSlot) {
-    if (_currentDay.year == DateTime.now().year &&
-        _currentDay.month == DateTime.now().month &&
-        _currentDay.day == DateTime.now().day) {
-      final slotTime = _parseTimeString(timeSlot);
-      return slotTime.isAfter(DateTime.now());
-    }
+bool isTimeSlotAvailable(String timeSlot) {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final selectedDate = DateTime(_currentDay.year, _currentDay.month, _currentDay.day);
+
+  if (selectedDate.isAfter(today)) {
     return true;
   }
+
+  if (selectedDate.isAtSameMomentAs(today)) {
+    final slotTime = _parseTimeString(timeSlot);
+    return slotTime.isAfter(now);
+  }
+
+  return false;
+}
 
   Future<void> _saveAppointment(Map<String, dynamic> doctor) async {
     setState(() {
@@ -181,7 +188,7 @@ class _BookingPageState extends State<BookingPage> {
                     TableCalendar(
                       focusedDay: _focusDay,
                       firstDay: DateTime.now(),
-                      lastDay: DateTime(2024, 12, 31),
+                      lastDay: DateTime(2025, 12, 31),
                       calendarFormat: _format,
                       currentDay: _currentDay,
                       rowHeight: 48,
