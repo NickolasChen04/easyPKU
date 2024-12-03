@@ -237,11 +237,11 @@ class AppointmentListView extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Doctor ID: ${appointment['doctorId'] ?? 'N/A'}',
+                  'Appointment ID: ${appointment['id'] ?? 'N/A'}',
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
                 Text(
-                  'Doctor Name: ${appointment['doctorName'] ?? 'N/A'}',
+                  'Doctor               : ${appointment['doctorName'] ?? 'N/A'}',
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
                 ),
                 const SizedBox(height: 8),
