@@ -111,7 +111,7 @@ class DoctorSelectionPage extends StatelessWidget {
         'position': 'Medical Officer',
         'experience': '12 years',
         'rating': '4.7',
-        'image': 'assets/Dr._Noor_Hafizah_Zaihanah_Bt_Mohd_Nur.png',
+        'image': 'assets/Dr_Noor_Hafizah_Zaihanah_Bt_Mohd_Nur.png',
         'specialty': 'Mental Health',
       },
       {
