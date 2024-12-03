@@ -47,7 +47,7 @@ class AppointmentSchedulePageState extends State<AppointmentSchedulePage>
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Appointment Schedule',
+          'Record',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
