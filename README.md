@@ -40,7 +40,7 @@ This installation process is designed for Windows operating systems.
 1. **Install Android Studio:**
    - [Download and install Android Studio](https://developer.android.com/studio).
    - Ensure **Android SDK**, **Android Virtual Device (AVD)**, and required tools are selected.
-   - 
+     
 2. **Configure AVD (Android Emulator):**
    - Open Android Studio and go to **Tools > AVD Manager**.
    - Create a new virtual device:
