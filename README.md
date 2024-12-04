@@ -21,12 +21,12 @@ This installation process is designed for Windows operating systems.
 ### 2. Flutter Installation
 
 #### 1. Download Flutter SDK
-- [Download the Flutter SDK](https://flutter.dev/docs/get-started/install) based on your system.
+- [Download the Flutter SDK](https://docs.flutter.dev/get-started/install) based on your system.
 - Extract the downloaded archive to a directory.
 
 #### 2. Set Environment Variables
 - Add the `bin` directory of the Flutter SDK to your system's `PATH` environment variable:
-  - Go to **System Properties > Environment Variables > Path > Edit > Add the Flutter SDK path** (e.g., `C:\src\flutter\bin`).
+  - Go to **System Properties > Environment Variables > Path > Edit > Add the Flutter SDK path** 
 
 #### 3. Verify Installation
 - Open a terminal and run the following command:
