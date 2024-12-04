@@ -65,7 +65,7 @@ This installation process is designed for Windows operating systems.
 
 ---
 
-## 4. Clone the Repository
+### 4. Clone the Repository
 1. Open a terminal.
    
 2. Navigate to the directory where you want to clone the repository.
@@ -75,3 +75,43 @@ This installation process is designed for Windows operating systems.
    git clone <repository_url>
    cd <repository_name>
 
+---
+
+### 5. Open the Project in VS Code
+1. Launch Visual Studio Code.
+   
+2. Open the cloned project directory.
+
+---
+   
+### 6. Set Up Test Card for Google Pay
+
+Join the Google Pay Developer Group to access test cards.
+
+---
+
+### 7. Install Flutter Dependencies
+In VS Code, open the terminal (`Ctrl + ``).
+- Run:
+     ```bash
+     flutter pub get
+     ```
+
+---
+
+### 8. Launch the Emulator
+
+1. In VS Code, press Ctrl + Shift + P to open the Command Palette.
+
+2. Type Flutter: Launch Emulator and select it.
+
+3. Choose the Medium Phone API 35 emulator from the list.
+
+---
+
+### 9. Run the Project
+In VS Code, open the terminal (`Ctrl + ``).
+   - Run:
+     ```bash
+     flutter run
+     ```
