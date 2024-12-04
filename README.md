@@ -1,16 +1,35 @@
-# easypku
+# easyPKU
 
-A new Flutter project.
+easyPKU, a mobile application specifically designed for UTM students. This app aims to upgrade the appointment process at PKU, providing an efficient and user-friendly platform that meets the unique needs of its users.
 
-## Getting Started
+## Installation Guide
 
-This project is a starting point for a Flutter application.
+This installation process is designed for Windows operating systems.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 1. Development IDE
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Install Visual Studio Code (VS Code)
+1. [Download and install VS Code](https://code.visualstudio.com/).
+2. Configure VS Code for Flutter:
+   - Open VS Code and navigate to the Extensions Marketplace.
+   - Search for and install the **Flutter extension**.
+
+---
+
+### 2. Flutter Installation
+
+#### 1. Download Flutter SDK
+- [Download the Flutter SDK](https://flutter.dev/docs/get-started/install) based on your system.
+- Extract the downloaded archive to a directory.
+
+#### 2. Set Environment Variables
+- Add the `bin` directory of the Flutter SDK to your system's `PATH` environment variable:
+  - Go to **System Properties > Environment Variables > Path > Edit > Add the Flutter SDK path** (e.g., `C:\src\flutter\bin`).
+
+#### 3. Verify Installation
+- Open a terminal and run the following command:
+  ```bash
+  flutter doctor
+
