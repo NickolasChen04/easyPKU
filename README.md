@@ -72,8 +72,8 @@ This installation process is designed for Windows operating systems.
    
 3. Run:
    ```bash
-   git clone <https://github.com/NickolasChen04/easyPKU.git>
-   cd <easyPKU>
+   git clone https://github.com/NickolasChen04/easyPKU.git
+   cd easyPKU
 
 ---
 
