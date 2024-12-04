@@ -86,7 +86,7 @@ This installation process is designed for Windows operating systems.
    
 ### 6. Set Up Test Card for Google Pay
 
-Join the Google Pay Developer Group to access test cards.
+Join the [Google Pay Developer Group](https://groups.google.com/forum/#!forum/googlepay-test-mode-stub-data) to access test cards.
 
 ---
 
